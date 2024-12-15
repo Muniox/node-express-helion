@@ -9,12 +9,14 @@ export const about = (req: Request, res: Response) => {
   res.render('about', { fortune: getFortune() })
 }
 
-export const notFound: RequestHandler = (req, res) => {
-  res.status(404).render('404')
+export const notFound: RequestHandler = (req, res, next) => {
+  res.status(404)
+  res.render('404')
 }
 
  export const serverError: ErrorRequestHandler = (err, req: Request, res: Response, next) => {
-  res.status(500).render('500')
+  res.status(500)
+  res.render('500')
 }
 
 

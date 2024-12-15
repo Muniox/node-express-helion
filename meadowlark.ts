@@ -25,3 +25,7 @@ app.use(serverError)
 app.listen(port, () => {
     console.log(`Express został uruchomiony pod adresem http://localhost:${port}`)
 })
+
+export default app
+
+

@@ -5,7 +5,8 @@
   "scripts": {
     "start:dev": "tsnd meadowlark.ts",
     "start:prod": "ts-node meadowlark.ts",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "npm test -- --coverage"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,8 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.2",
     "jest": "^29.7.0",
+    "portfinder": "^1.0.32",
+    "puppeteer": "^23.10.4",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
