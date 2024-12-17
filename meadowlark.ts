@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000;
 const hbs = create({
   defaultLayout: 'main',
   extname: 'handlebars',
-  partialsDir: ''  
 });
 
 app.use(express.static('public'));
@@ -17,7 +16,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 //Włączenie zapisywania widoków w pamięci podręcznej
-app.set('view cache', true);
+// app.set('view cache', true);
 
 app.get('/', home);
 app.get('/about', about);
