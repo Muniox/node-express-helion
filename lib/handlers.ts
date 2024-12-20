@@ -37,12 +37,11 @@ export const newsletterSignupThankYou = (req: Request, res: Response) => {
 }
 
 export const newsletter = (req: Request, res: Response) => {
-  res.render('/newsletter', newsletter)
+  res.render('newsletter', {csrf: 'miejsce na token CSRF'})
 }
 
 export const api = {
   newsletterSignup: (req: Request, res: Response) => {
-    console.log('Formularz (z ciągu zapytania): ' + req.query.form)
     console.log('Token CSRF (z ukrytego pola formularza): ' + req.body._csrf)
     console.log('Imię (z widocznego pola formularza): ' + req.body.name)
     console.log('E-mail (z widocznego pola formularza): ' + req.body.email)

@@ -21,6 +21,7 @@ const hbs = create({
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 //Konfiguracja silnika widoków Handlebars
 app.engine('handlebars', hbs.engine);
@@ -32,14 +33,16 @@ app.set('views', './views');
 app.get('/', home);
 app.get('/about', about);
 
+// obsługa formularzy typu fetch/JSON
+app.get('/newsletter', newsletter)
+app.post('/api/newsletter-signup', api.newsletterSignup)
+
 // obsługa formularzy przesłanych przez przeglądarkę
 app.get('/newsletter-signup', newsletterSignup)
 app.post('/newsletter-signup/process', newsletterSignupProcess)
 app.get('/newsletter-signup/thank-you', newsletterSignupThankYou)
 
-// obsługa formularzy typu fetch/JSON
-app.get('/newsletter', newsletter)
-app.post('/api/newsletter-signup', api.newsletterSignup)
+
 
 //Niestandardowa strona 404
 app.use(notFound);
