@@ -1,6 +1,14 @@
 import express from 'express';
 import { create } from 'express-handlebars';
-import { home, notFound, about, serverError } from './lib/handlers';
+import { 
+  home, 
+  notFound, 
+  about, 
+  serverError, 
+  newsletterSignup, 
+  newsletterSignupProcess, 
+  newsletterSignupThankYou
+} from './lib/handlers';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,6 +18,7 @@ const hbs = create({
 });
 
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}))
 
 //Konfiguracja silnika widoków Handlebars
 app.engine('handlebars', hbs.engine);
@@ -20,6 +29,10 @@ app.set('views', './views');
 
 app.get('/', home);
 app.get('/about', about);
+
+app.get('/newsletter-signup', newsletterSignup)
+app.post('/newsletter-signup/process', newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you', newsletterSignupThankYou)
 
 //Niestandardowa strona 404
 app.use(notFound);
