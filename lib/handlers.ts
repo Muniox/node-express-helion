@@ -1,5 +1,6 @@
 import { getFortune } from './fortune'
 import { Request, Response, RequestHandler, ErrorRequestHandler } from 'express'
+import multiparty from 'multiparty'
 
 export const home = (req: Request, res: Response) => {
   res.render('home')
@@ -40,11 +41,39 @@ export const newsletter = (req: Request, res: Response) => {
   res.render('newsletter', {csrf: 'miejsce na token CSRF'})
 }
 
+
+// Contest vacation photo
+export const vacationPhoto = (req: Request, res: Response) => {
+  res.render('contest/vacation-photo', {csrf: 'miejsce na token CSRF', year: 2024, month: 4})
+}
+
+export const vacationPhotoAjax = (req: Request, res: Response) => {
+  res.render('contest/vacation-photo-ajax', {csrf: 'miejsce na token CSRF', year: 2024, month: 4})
+}
+
+export const vacationPhotoContestProcess = (req: Request, res: Response, fields: Record<string, string[] | undefined>, files: Record<string, multiparty.File[] | undefined>) => {
+  console.log('params: ', 'year: ' + req.params.year, 'month: ' + req.params.month)
+  console.log('field data: ', fields)
+  console.log('files: ', files)
+  res.status(303)
+  res.redirect('/contest/vacation-photo-thank-you')
+}
+
+export const vacationPhotoThankYou = (req: Request, res: Response) => {
+  res.render('contest/vacation-photo-thank-you')
+}
+
 export const api = {
   newsletterSignup: (req: Request, res: Response) => {
     console.log('Token CSRF (z ukrytego pola formularza): ' + req.body._csrf)
     console.log('Imię (z widocznego pola formularza): ' + req.body.name)
     console.log('E-mail (z widocznego pola formularza): ' + req.body.email)
+    res.send({result: 'success'})
+  },
+
+  vacationPhotoContest: (req: Request, res: Response, fields: any, files: any) => {
+    console.log('field data: ', fields)
+    console.log('files: ', files)
     res.send({result: 'success'})
   }
 }
