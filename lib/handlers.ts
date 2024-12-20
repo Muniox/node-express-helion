@@ -36,4 +36,18 @@ export const newsletterSignupThankYou = (req: Request, res: Response) => {
   res.render('newsletter-signup-thank-you')
 }
 
+export const newsletter = (req: Request, res: Response) => {
+  res.render('/newsletter', newsletter)
+}
+
+export const api = {
+  newsletterSignup: (req: Request, res: Response) => {
+    console.log('Formularz (z ciągu zapytania): ' + req.query.form)
+    console.log('Token CSRF (z ukrytego pola formularza): ' + req.body._csrf)
+    console.log('Imię (z widocznego pola formularza): ' + req.body.name)
+    console.log('E-mail (z widocznego pola formularza): ' + req.body.email)
+    res.send({result: 'success'})
+  }
+}
+
 
