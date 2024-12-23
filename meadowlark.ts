@@ -15,7 +15,10 @@ import {
   vacationPhoto,
   vacationPhotoAjax
 } from './lib/handlers';
-import multiparty from 'multiparty'
+import multiparty from 'multiparty';
+import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
+import config from './config';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,6 +30,12 @@ const hbs = create({
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(expressSession({
+  resave: false,
+  saveUninitialized: false,
+  secret: config.cookieSecret,
+}))
+app.use(cookieParser(config.cookieSecret))
 
 //Konfiguracja silnika widoków Handlebars
 app.engine('handlebars', hbs.engine);
