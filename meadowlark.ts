@@ -19,6 +19,7 @@ import multiparty from 'multiparty';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 import config from './config';
+import { flash as flashMiddleware } from './lib/middleware/flash';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,8 +35,12 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: false,
   secret: config.cookieSecret,
+  cookie: {
+    secure: false, //http only
+  }
 }))
 app.use(cookieParser(config.cookieSecret))
+app.use(flashMiddleware)
 
 //Konfiguracja silnika widoków Handlebars
 app.engine('handlebars', hbs.engine);
@@ -55,6 +60,7 @@ app.post('/api/newsletter-signup', api.newsletterSignup)
 app.get('/newsletter-signup', newsletterSignup)
 app.post('/newsletter-signup/process', newsletterSignupProcess)
 app.get('/newsletter-signup/thank-you', newsletterSignupThankYou)
+app.get('/newsletter-archive', newsletterSignupThankYou)
 
 app.get('/contest/vacation-photo-ajax', vacationPhotoAjax)
 app.post('/api/vacation-photo-contest/:year/:month', (req, res) => {
